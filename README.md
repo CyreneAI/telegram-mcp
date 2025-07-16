@@ -1,4 +1,4 @@
-## 📞 Telegram MCP (Multi-Channel Platform Server)
+## 📞 Telegram MCP
 
 This repository contains the Telegram MCP (Multi-Channel Platform) server, a specialized microservice within the Multi-Agent Bot system. It acts as the bridge between Telegram's webhook API and the cyrene-agent (bot-api), enabling dynamic management of multiple Telegram bots.
 

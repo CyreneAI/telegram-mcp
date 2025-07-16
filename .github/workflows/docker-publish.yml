@@ -1,0 +1,35 @@
+name: Build & Publish telegram-mcp
+
+on:
+  push:
+    branches: [ main ]
+    tags: ['v*']
+
+permissions:
+  contents: read      # for checkout
+  packages: write     # to push to GHCR
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR (pull & push)
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_CR_PAT }}
+
+      - name: Build & push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .           # repo root
+          file:    Dockerfile  # root-level Dockerfile
+          push:    true
+          tags: |
+            ghcr.io/cyreneai/telegram-mcp:latest
+            ghcr.io/cyreneai/telegram-mcp:${{ github.sha }}
